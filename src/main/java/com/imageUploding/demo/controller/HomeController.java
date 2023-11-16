@@ -23,53 +23,6 @@ import java.util.List;
 public class HomeController {
 
     @Autowired
-    private UplodeRepository uploadRepo;
-
-    @GetMapping("/")
-    public String index(Model m) {
-
-        List<images> list = uploadRepo.findAll();
-
-        m.addAttribute("list", list);
-
-        return "index";
-    }
-
-    @PostMapping("/imageUpload")
-    public String imageUpload(@RequestParam MultipartFile img, HttpSession session) {
-
-        System.out.println("haritha");
-        images im = new images();
-        im.setImageName(img.getOriginalFilename());
-
-        images uploadImg = uploadRepo.save(im);
-
-        if (uploadImg != null) {
-            try {
-
-                File saveFile = new ClassPathResource("static/img").getFile();
-
-                Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + img.getOriginalFilename());
-                //System.out.println(path);
-                Files.copy(img.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        session.setAttribute("msg", "Image Upload Sucessfully");
-
-        return "redirect:/";
-    }
-
-}
-
-
-/*@Controller
-public class HomeController {
-
-    @Autowired
     private UplodeRepository UploadRepo;
 
     @GetMapping("/")
@@ -83,7 +36,7 @@ public class HomeController {
     @PostMapping("/imageUploader")
     public String imageUploader(@RequestParam MultipartFile img, HttpSession session)
     {
-        System.out.println("hello haritha");
+        //System.out.println("hello test");
         //System.out.println(img.getOriginalFilename());
         images im = new images();
         im.setImageName(img.getOriginalFilename());
@@ -105,4 +58,4 @@ public class HomeController {
         session.setAttribute("msg","Image Upload Sucessfuly");
         return "redirect:/index";
     }
-}*/
+}
