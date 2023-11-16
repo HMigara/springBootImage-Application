@@ -55,7 +55,7 @@ public class HomeController {
 
         }
 
-        session.setAttribute("msg","Image Upload Sucessfuly");
+       
         return "redirect:/index";
     }
 }
